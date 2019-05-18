@@ -31,18 +31,18 @@ enum Result eHexStringToUInt(char pcStr[], unsigned int *puiValue)
 	unsigned char ucCharCounter;
 	unsigned char ucCurrentCharacter;
 	
-	if ( (pcStr[0] != '0') || (pcStr[1] != 'x') || (pcStr[2] == NULL) || (pcStr[6] != NULL) )
+	if ( (pcStr[0] != '0') || (pcStr[1] != 'x') || (pcStr[2] == NULL) )
 	{
 		return ERROR;
 	}
 	
-	for ( ucCharCounter = 2; ucCharCounter <= 6 ; ucCharCounter++ )
+	for ( ucCharCounter = 2; pcStr[ucCharCounter] != NULL ; ucCharCounter++ )
 	{
 		ucCurrentCharacter = pcStr[ucCharCounter];
 		
-		if ( ucCurrentCharacter == NULL ) 
+		if ( ucCharCounter == 6 ) 
 		{
-			return OK;
+			return ERROR;
 		}
 		
 		*puiValue = (*puiValue << 4);
@@ -55,6 +55,7 @@ enum Result eHexStringToUInt(char pcStr[], unsigned int *puiValue)
 			*puiValue = *puiValue + (ucCurrentCharacter - '0');
 		}
 	}
+	return OK;
 }
 
 

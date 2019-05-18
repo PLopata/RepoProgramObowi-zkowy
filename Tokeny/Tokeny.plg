@@ -3,7 +3,35 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Piotrek\Desktop\ProgramObowi¹zkowy\Tokeny\Tokeny.uvproj
-Project File Date:  05/04/2019
+C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Tokeny\Tokeny.uvproj
+Project File Date:  05/05/2019
 
 <h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+main.c(10): warning:  #375-D: declaration requires a typedef name
+main.c(14): warning:  #375-D: declaration requires a typedef name
+main.c(21): warning:  #375-D: declaration requires a typedef name
+main.c(27): warning:  #375-D: declaration requires a typedef name
+main.c(35): warning:  #375-D: declaration requires a typedef name
+linking...
+Program Size: Code=1216 RO-data=32 RW-data=72 ZI-data=1280  
+".\Tokeny.axf" - 0 Errors, 5 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: Code=1216 RO-data=32 RW-data=72 ZI-data=1280  
+".\Tokeny.axf" - 0 Errors, 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(10): warning:  #375-D: declaration requires a typedef name
+main.c(14): warning:  #375-D: declaration requires a typedef name
+main.c(21): warning:  #375-D: declaration requires a typedef name
+main.c(27): warning:  #375-D: declaration requires a typedef name
+main.c(35): warning:  #375-D: declaration requires a typedef name
+linking...
+Program Size: Code=1216 RO-data=32 RW-data=64 ZI-data=1280  
+".\Tokeny.axf" - 0 Errors, 5 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: Code=1216 RO-data=32 RW-data=64 ZI-data=1280  
+".\Tokeny.axf" - 0 Errors, 0 Warning(s).

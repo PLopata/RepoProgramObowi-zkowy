@@ -1,4 +1,4 @@
-#include <LPC21xx.H>
+//#include <LPC21xx.H>
 
 #define NULL 0
 #define MAX_TOKEN_NR 3
@@ -7,32 +7,36 @@
 
 /*------------------------------------------------------------*/
 
-typedef enum KeywordCode {LD, ST, RST};
+typedef enum KeywordCode {LD=1, ST, RST} eKeyCode;
 
 enum Result {ERROR, OK} eResult;
 
-typedef enum TokenType {KEYWORD, NUMBER, STRING};
+/*------------------------------------------------------------*/
+
+typedef enum TokenType {KEYWORD=1, NUMBER, STRING} eTokenType;
 
 typedef union TokenValue
 {
 	enum KeywordCode     eKeyword;
 	unsigned int         uiNumber;
 	char *               pcString;
-};
+}TokenValue;
 
 typedef struct Token
 {
 	enum TokenType       eType;
 	union TokenValue     uValue;
-};
+} TokenType;
 
 struct Token asToken[MAX_TOKEN_NR];
+
+/*------------------------------------------------------------*/
 
 typedef struct Keyword
 {
 	enum KeywordCode     eCode;
 	char                 cString[MAX_KEYWORD_STRING_LTH + 1];
-};
+}Keyword;
 
 struct Keyword asKeywordList[MAX_KEYWORD_NR] = 
 { 
@@ -40,71 +44,6 @@ struct Keyword asKeywordList[MAX_KEYWORD_NR] =
 	{LD, "load"}, 
 	{ST, "store"} 
 };
-
-/*------------------------------------------------------------*/
-
-enum CompResult { DIFFERENT, EQUAL };
-
-enum CompResult eCompareString(char pcStr1[], char pcStr2[])
-{
-	unsigned char ucCharacterCounter;
-	
-	for(ucCharacterCounter=0; ( pcStr1[ucCharacterCounter]!=NULL ) || ( pcStr2[ucCharacterCounter]!=NULL ); ucCharacterCounter++)
-	{
-		if(pcStr1[ucCharacterCounter] != pcStr2[ucCharacterCounter])
-		{
-			return DIFFERENT;
-		}
-	}
-	return EQUAL;
-}
-
-enum Result eHexStringToUInt(char pcStr[], unsigned int *puiValue)
-{
-	unsigned char ucCharCounter;
-	unsigned char ucCurrentCharacter;
-	
-	if ( (pcStr[0] != '0') || (pcStr[1] != 'x') || (pcStr[2] == NULL) )
-	{
-		return ERROR;
-	}
-	
-	*puiValue = 0;
-	for ( ucCharCounter = 2; pcStr[ucCharCounter] != NULL ; ucCharCounter++ )
-	{
-		ucCurrentCharacter = pcStr[ucCharCounter];
-		
-		if ( ucCharCounter == 6 ) 
-		{
-			return ERROR;
-		}
-		
-		*puiValue = (*puiValue << 4);
-		if ( ucCurrentCharacter >= 'A' )
-		{
-			*puiValue = *puiValue + (ucCurrentCharacter - 'A' + 10);
-		}
-		else
-		{
-			*puiValue = *puiValue + (ucCurrentCharacter - '0');
-		}
-	}
-	return OK;
-}
-
-
-void ReplaceCharactersInString(char pcSource[], char cOldChar, char cNewChar)
-{
-	unsigned char ucCharacterCounter;
-	
-	for(ucCharacterCounter=0; pcSource[ucCharacterCounter]!=0; ucCharacterCounter++)
-	{
-		if(pcSource[ucCharacterCounter]==cOldChar)	
-		{
-			pcSource[ucCharacterCounter]=cNewChar;
-		}
-	}
-}
 
 /*------------------------------------------------------------*/
 
@@ -117,6 +56,7 @@ unsigned char ucFindTokensInString(char *pcString)
 	
 	eState = DELIMITER;
 	ucNumberOfTokens = 0;
+
 	for ( ucCharCounter = 0; ; ucCharCounter++ )
 	{
 		ucCurrentCharacter = pcString[ucCharCounter];
@@ -133,7 +73,7 @@ unsigned char ucFindTokensInString(char *pcString)
 					eState = TOKEN;
 					asToken[ucNumberOfTokens].uValue.pcString = &pcString[ucCharCounter];
 					ucNumberOfTokens++;
-					//if ( ucNumberOfTokens == 3 )   SPYTAJ!!!
+					//if ( ucNumberOfTokens == 3 )
 					//{
 					//	return ucNumberOfTokens;
 					//}
@@ -157,19 +97,75 @@ unsigned char ucFindTokensInString(char *pcString)
 	}
 }
 
+/*------------------------------------------------------------*/
+
+enum CompResult { DIFFERENT, EQUAL };
+
+enum CompResult eCompareString(char pcStr1[], char pcStr2[])
+{
+	unsigned char ucCharacterCounter;
+	
+	for(ucCharacterCounter=0; ( pcStr1[ucCharacterCounter]!=NULL ) || ( pcStr2[ucCharacterCounter]!=NULL ); ucCharacterCounter++)
+	{
+		if(pcStr1[ucCharacterCounter] != pcStr2[ucCharacterCounter])
+		{
+			return DIFFERENT;
+		}
+	}
+	return EQUAL;
+}
+
+
 enum Result eStringToKeyword (char pcStr[], enum KeywordCode *peKeywordCode)
 {
-	unsigned char ucKeywordCounter;
+	unsigned char ucKeywordListCounter;
+	enum CompResult eCompareResult;
 	
-	for ( ucKeywordCounter=0; ucKeywordCounter < MAX_KEYWORD_NR; ucKeywordCounter++ )
+	for ( ucKeywordListCounter=0; ucKeywordListCounter <= 2; ucKeywordListCounter++ )
 	{
-		if ( eCompareString( pcStr, asKeywordList[ucKeywordCounter].cString ) == EQUAL )
+		eCompareResult = eCompareString( pcStr, asKeywordList[ucKeywordListCounter].cString );
+		
+		if ( eCompareResult == EQUAL )
 		{
-			*peKeywordCode = asKeywordList[ucKeywordCounter].eCode;
+			*peKeywordCode = asKeywordList[ucKeywordListCounter].eCode;
 			return OK;
 		}
 	}
 	return ERROR;
+}
+
+/*------------------------------------------------------------*/
+
+enum Result eHexStringToUInt(char pcStr[], unsigned int *puiValue)
+{
+	unsigned char ucCharCounter;
+	unsigned char ucCurrentCharacter;
+	
+	if ( (pcStr[0] != '0') || (pcStr[1] != 'x') || (pcStr[2] == NULL) )
+	{
+		return ERROR;
+	}
+	
+	for ( ucCharCounter = 2; pcStr[ucCharCounter] != NULL ; ucCharCounter++ )
+	{
+		ucCurrentCharacter = pcStr[ucCharCounter];
+		
+		if ( ucCharCounter == 6 ) 
+		{
+			return ERROR;
+		}
+		
+		*puiValue = (*puiValue << 4);
+		if ( ucCurrentCharacter >= 'A' )
+		{
+			*puiValue = *puiValue + (ucCurrentCharacter - 'A' + 10);
+		}
+		else
+		{
+			*puiValue = *puiValue + (ucCurrentCharacter - '0');
+		}
+	}
+	return OK;
 }
 
 void DecodeTokens (void)
@@ -179,7 +175,7 @@ void DecodeTokens (void)
 	
 	for ( ucTokenNr=0; ucTokenNr < MAX_TOKEN_NR; ucTokenNr++ )
 	{
-		TokenValue = &asToken[ucTokenNr];
+		*TokenValue = asToken[ucTokenNr];
 		
 		if ( eStringToKeyword( TokenValue->uValue.pcString, &TokenValue->uValue.eKeyword ) == OK  )
 		{
@@ -194,19 +190,16 @@ void DecodeTokens (void)
 			TokenValue->eType = STRING;
 		}
 	}
+	
 }
 
-void DecodeMsg( char *pcString )
-{
-	ucFindTokensInString( pcString );
-	ReplaceCharactersInString( pcString, ' ', NULL);
-	DecodeTokens();
-}
-
-char aucInput[] = "  reset 0xA2C2 quickly  ";
+char aucInput[] = "reset";
 unsigned char ucNumberOfTokens;
 
 int main()
 {
-	DecodeMsg( aucInput );
+	//eResult = eStringToKeyword( aucInput, &asToken[1].uValue.eKeyword );
+	ucNumberOfTokens = ucFindTokensInString ( aucInput );
+	DecodeTokens();
 }
+

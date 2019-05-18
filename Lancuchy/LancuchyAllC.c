@@ -2,7 +2,8 @@
 
 void CopyString(char pcSource[], char pcDestination[])
 {
-	for (unsigned char ucCharacterCounter=0; pcSource[ucCharacterCounter]!='\0'; ucCharacterCounter++)	
+	unsigned char ucCharacterCounter;
+	for (ucCharacterCounter=0; pcSource[ucCharacterCounter]!='\0'; ucCharacterCounter++)	
 	{
 		pcDestination[ucCharacterCounter] = pcSource[ucCharacterCounter];
 	}		
@@ -16,7 +17,8 @@ enum CompResult
 
 enum CompResult eCompareString(char pcStr1[], char pcStr2[])
 {
-		for(unsigned char ucCharacterCounter=0; pcStr1[ucCharacterCounter]!='\0'; ucCharacterCounter++)
+	unsigned char ucCharacterCounter;
+		for(ucCharacterCounter=0; pcStr1[ucCharacterCounter]!='\0'; ucCharacterCounter++)
 	{
 		if(pcStr1[ucCharacterCounter]!=pcStr2[ucCharacterCounter])
 		{
@@ -37,7 +39,8 @@ void AppendString(char pcSourceStr[],char pcDestinationStr[])
 
 void ReplaceCharactersInString(char pcSource[], char cOldChar, char cNewChar)
 {
-	for(unsigned char ucCharacterCounter=0; pcSource[ucCharacterCounter]!=0; ucCharacterCounter++)
+	unsigned char ucCharacterCounter;
+	for(ucCharacterCounter=0; pcSource[ucCharacterCounter]!=0; ucCharacterCounter++)
 	{
 		if(pcSource[ucCharacterCounter]==cOldChar)	
 		pcSource[ucCharacterCounter]=cNewChar;
