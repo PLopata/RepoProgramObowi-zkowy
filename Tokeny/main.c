@@ -128,15 +128,15 @@ unsigned char ucFindTokensInString(char *pcString)
 				{
 					return ucNumberOfTokens;
 				}
+				else if ( ucNumberOfTokens == 3 )
+				{
+					return ucNumberOfTokens;
+				}
 				else if ( ucCurrentCharacter != ' ' )
 				{
 					eState = TOKEN;
 					asToken[ucNumberOfTokens].uValue.pcString = &pcString[ucCharCounter];
 					ucNumberOfTokens++;
-					//if ( ucNumberOfTokens == 3 )   SPYTAJ!!!
-					//{
-					//	return ucNumberOfTokens;
-					//}
 				}
 				break;
 			}
