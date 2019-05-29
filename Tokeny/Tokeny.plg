@@ -7,13 +7,3 @@ C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Tokeny\Tokeny.uvproj
 Project File Date:  05/05/2019
 
 <h2>Output:</h2>
-Build target 'Target 1'
-compiling main.c...
-main.c(10): warning:  #375-D: declaration requires a typedef name
-main.c(14): warning:  #375-D: declaration requires a typedef name
-main.c(21): warning:  #375-D: declaration requires a typedef name
-main.c(27): warning:  #375-D: declaration requires a typedef name
-main.c(35): warning:  #375-D: declaration requires a typedef name
-linking...
-Program Size: Code=1228 RO-data=32 RW-data=64 ZI-data=1280  
-".\Tokeny.axf" - 0 Errors, 5 Warning(s).

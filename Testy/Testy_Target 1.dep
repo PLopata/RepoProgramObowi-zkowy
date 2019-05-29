@@ -1,0 +1,11 @@
+Dependencies for Project 'Testy', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x51C81B7E)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\main.c)(0x5CE982BC)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+I (C:\Keil\ARM\Inc\Philips\LPC21xx.H)(0x51C81BAC)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C819B4)
+I (C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Testy\Lancuchy.h)(0x5CE7D674)
+I (C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Testy\Konwersje.h)(0x5CE7D74B)
+F (.\Lancuchy.c)(0x5CE7D674)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\lancuchy.o --omf_browse .\lancuchy.crf --depend .\lancuchy.d)
+I (C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Testy\lancuchy.h)(0x5CE7D674)
+F (.\Konwersje.c)(0x5CE7D74B)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\konwersje.o --omf_browse .\konwersje.crf --depend .\konwersje.d)
+I (C:\Users\Piotrek\Desktop\RepoProgramObowiazkowy\Testy\Konwersje.h)(0x5CE7D74B)

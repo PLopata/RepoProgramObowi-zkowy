@@ -128,7 +128,7 @@ unsigned char ucFindTokensInString(char *pcString)
 				{
 					return ucNumberOfTokens;
 				}
-				else if ( ucNumberOfTokens == 3 )
+				else if ( ucNumberOfTokens == MAX_TOKEN_NR )
 				{
 					return ucNumberOfTokens;
 				}
@@ -137,6 +137,10 @@ unsigned char ucFindTokensInString(char *pcString)
 					eState = TOKEN;
 					asToken[ucNumberOfTokens].uValue.pcString = &pcString[ucCharCounter];
 					ucNumberOfTokens++;
+				}
+				else 
+				{
+					eState = DELIMITER;
 				}
 				break;
 			}
@@ -150,6 +154,10 @@ unsigned char ucFindTokensInString(char *pcString)
 				else if ( ucCurrentCharacter == ' ' )
 				{
 					eState = DELIMITER;
+				}
+				else 
+				{
+					eState = TOKEN;
 				}
 				break;
 			}

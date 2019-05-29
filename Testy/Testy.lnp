@@ -1,0 +1,9 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\main.o"
+".\lancuchy.o"
+".\konwersje.o"
+--strict --scatter ".\Testy.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Testy.map" -o .\Testy.axf
